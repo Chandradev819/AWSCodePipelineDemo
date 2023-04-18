@@ -21,5 +21,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGet("/", () => "Hello CI/CD Pipeline demo!");
+app.MapGet("/", () => "Hello Chandradev!");
 app.Run();
