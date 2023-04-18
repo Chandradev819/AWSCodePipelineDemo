@@ -21,5 +21,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGet("/", () => "Hello Chandradev!");
+app.MapGet("/", () => "Hello AWS CICD Pipeline!");
 app.Run();
