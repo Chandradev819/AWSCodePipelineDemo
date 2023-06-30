@@ -1,18 +1,21 @@
 version: 0.2
-        
+
 phases:
-  install:
-    runtime-versions:
-      dotnet: 6.0
   pre_build:
     commands:
-      - dotnet restore AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 639080980474.dkr.ecr.eu-west-2.amazonaws.com
   build:
     commands:
-      - dotnet build AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
+      - echo Building Docker image...
+      - docker build -t awscodepipelinedemo :dev .
+      - echo Pushing Docker image to ECR...
+      - docker tag awscodepipelinedemo:dev 639080980474.dkr.ecr.eu-west-2.amazonaws.com/awscodepipelinedemo:dev
   post_build:
     commands:
-      - dotnet publish -c Release -o ./app/ AWSCodePipelineDemo/AWSCodePipelineDemo.csproj
+      # Additional commands for post-build steps (e.g., tests, artifacts, etc.)
+      - echo Build completed successfully.
+
 artifacts:
   files:
     - '**/*'
